@@ -1,13 +1,17 @@
 import mongoose from 'mongoose';
 
-// Connect to MongoDB
 const connectDB = async () => {
     try {
-        await mongoose.connect(`${process.env.MONGODB_URI}/lms`);
-        console.log('Database connected');
+        console.log("MONGODB_URI:", process.env.MONGODB_URI); // Debugging
+
+        await mongoose.connect(process.env.MONGODB_URI, {
+            dbName: "lms", // Explicitly specifying database name
+        });
+
+        console.log('✅ Database connected successfully');
     } catch (error) {
-        console.error('Database connection failed:', error);
-        process.exit(1); // Exit process with failure
+        console.error('❌ Database connection failed:', error.message);
+        process.exit(1);
     }
 };
 
